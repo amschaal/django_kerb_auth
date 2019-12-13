@@ -24,8 +24,17 @@ class UserForm(forms.models.ModelForm, SetPasswordForm):
         password = self.cleaned_data['new_password1']
         if commit:
             with transaction.atomic():
+                print('saving user')
                 user = forms.models.ModelForm.save(self, commit=commit)
-                self.kadmin.add_principal(user, password)
+                print('adding principal')
+                try:
+                    self.kadmin.add_principal(user, password)
+                    print('principal added')
+                except Exception as e:
+                    print('Problem with add_principal')
+                    print(e.message)
+                    raise e
+                return user
         else:
             return forms.models.ModelForm.save(self, commit=commit)
             
