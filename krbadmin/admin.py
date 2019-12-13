@@ -1,7 +1,7 @@
 from django.conf import settings
 import datetime
 # import logging
-# logger = logging.getLogger('gcportal.debug.kerberos')
+# logger = logging.getLogger('gcportal.debug.krbadmin')
 
 try:
     import kadmin
@@ -41,8 +41,10 @@ class KerberosAdmin(object):
         self.kadmin.addprinc(principal,password)
 #         #Log.create(text="Principal '%s' created for '%s'"%(user.username,user),objects=[user])
         princ = self.kadmin.getprinc(principal)
-        princ.policy = getattr(settings, 'KRB_DEFAULT_POLICY',None)
-        princ.commit()
+        if princ:
+            princ.policy = getattr(settings, 'KRB_DEFAULT_POLICY',None)
+            princ.commit()
+        return princ
 #         #Log.create(text="Policy '%s' set for principal '%s'"%(princ.policy,princ.name),objects=[user])
     def get_user_principal(self,user):
         principal = "%s@%s" % (user.username,settings.KRB_REALM)

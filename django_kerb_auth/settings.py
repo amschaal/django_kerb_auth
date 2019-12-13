@@ -123,4 +123,31 @@ STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+
+"""
+    Start Kerberos authentication backend
+"""
+# krbadmin realm and service
+KRB5_REALM = 'TEST.GENOMECENTER.UCDAVIS.EDU'
+KRB5_SERVICE = 'krbtgt/TEST.GENOMECENTER.UCDAVIS.EDU@TEST.GENOMECENTER.UCDAVIS.EDU' #'[hostnam$
+
+# Enabled KDC verification defending against rogue KDC responses
+# by validating the ticket against the local keytab.
+KRB5_VERIFY_KDC = False
+
+# Enable case-sensitive matching between Kerberos and database user names
+KRB5_USERNAME_MATCH_IEXACT = True
+
+# redirect url after login
+LOGIN_REDIRECT_URL = '/'
+
+
+# enable krbadmin auth backends
+AUTHENTICATION_BACKENDS = (
+    'django_auth_kerberos.backends.KrbBackend',
+)
+
+"""
+    End Kerberos authentication backend
+"""
 from django_kerb_auth.config import *
