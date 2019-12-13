@@ -39,11 +39,17 @@ class KerberosAdmin(object):
     def add_principal(self,user,password=None):
         principal = "%s@%s" % (user.username,settings.KRB_REALM)
         self.kadmin.addprinc(principal,password)
+        print('Principal added')
 #         #Log.create(text="Principal '%s' created for '%s'"%(user.username,user),objects=[user])
         princ = self.kadmin.getprinc(principal)
+        print('set policy for princ', princ)
         if princ:
-            princ.policy = getattr(settings, 'KRB_DEFAULT_POLICY',None)
-            princ.commit()
+            policy = getattr(settings, 'KRB_DEFAULT_POLICY',None)
+            print('policy', policy)
+            if policy:
+                princ.policy = policy
+                princ.commit()
+                print('policy set')
         return princ
     def delete_principal(self,user):
         principal = "%s@%s" % (user.username,settings.KRB_REALM)

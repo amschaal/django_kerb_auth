@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block 'content' %}
+<h3>Genome Center Web Accounts</h3>
+{% if request.user.is_authenticated %}<p>Welcome, {{request.user}}!</p>{% endif %}
+<p>Manage your credentials for accessing Genome Center web applications such as Submissions, Bioshare, etc.
+{% endblock %}

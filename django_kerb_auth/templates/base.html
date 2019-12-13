@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Adam Schaal">
-    <title>Top navbar example · Bootstrap</title>
+    <title>Genome Center Web Account</title>
     <!-- Bootstrap core CSS -->
     <link href="/static/vendor/bootstrap-4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <meta name="theme-color" content="#563d7c">
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-  <a class="navbar-brand" href="#">Genome Center Account</a>
+  <a class="navbar-brand" href="#">Genome Center Web Account</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -20,12 +20,18 @@
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'index'%}">Home</a>
       </li>
+      {% if not request.user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'create_user'%}">Create account</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'login'%}">Login</a>
       </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout'%}">Logout</a>
+      </li>
+      {% endif %}
       <!-- <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li> -->
@@ -36,9 +42,8 @@
 <main role="main" class="container">
   {% block 'content' %}
   <div class="jumbotron">
-    <h1>Navbar example</h1>
-    <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll, this navbar remains in its original position and moves with the rest of the page.</p>
-    <a class="btn btn-lg btn-primary" href="/docs/4.4/components/navbar/" role="button">View navbar docs &raquo;</a>
+    <h1>Base</h1>
+    <p class="lead">Override me with 'content' block.</p>
   </div>
   {% endblock %}
 </main>
