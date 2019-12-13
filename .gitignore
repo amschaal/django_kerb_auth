@@ -2,3 +2,7 @@
 config.py
 */config.py
 
+/computing.keytab
+/.project
+/.pydevproject
+/db.sqlite3
