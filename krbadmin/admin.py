@@ -45,6 +45,9 @@ class KerberosAdmin(object):
             princ.policy = getattr(settings, 'KRB_DEFAULT_POLICY',None)
             princ.commit()
         return princ
+    def delete_principal(self,user):
+        principal = "%s@%s" % (user.username,settings.KRB_REALM)
+        return self.kadmin.delprinc(principal)
 #         #Log.create(text="Policy '%s' set for principal '%s'"%(princ.policy,princ.name),objects=[user])
     def get_user_principal(self,user):
         principal = "%s@%s" % (user.username,settings.KRB_REALM)
